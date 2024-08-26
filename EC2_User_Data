@@ -18,7 +18,7 @@ sudo chmod 700 /home/ubuntu/.ssh
 sudo chmod 600 /home/ubuntu/.ssh/authorized_keys
 
 # Git clone project to run ansible and docker compose
-sudo git clone https://github.com/Yoram-Izilov-Nitzanim/Ansible
+sudo git clone https://github.com/Yoram-Izilov-Nitzanim/Ansible /home/ubuntu/Ansible
 
 # Add host file for the ansible to run
 sudo echo "[servers]" > /home/ubuntu/Ansible/hosts
