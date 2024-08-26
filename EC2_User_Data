@@ -16,3 +16,13 @@ cat /home/ubuntu/.ssh/id_rsa.pub | sudo tee -a /home/ubuntu/.ssh/authorized_keys
 sudo chown -R ubuntu:ubuntu /home/ubuntu/.ssh
 sudo chmod 700 /home/ubuntu/.ssh
 sudo chmod 600 /home/ubuntu/.ssh/authorized_keys
+
+# Git clone project to run ansible and docker compose
+sudo git clone https://github.com/Yoram-Izilov-Nitzanim/Ansible
+
+# Add host file for the ansible to run
+sudo echo "[servers]" > /home/ubuntu/Ansible/hosts
+sudo curl http://checkip.amazonaws.com >> /home/ubuntu/Ansible/hosts
+
+# Run ansible
+sudo ansible-playbook -i /home/ubuntu/Ansible/hosts /home/ubuntu/Ansible/playbook.yaml 
