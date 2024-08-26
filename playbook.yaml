@@ -5,7 +5,7 @@
 
   tasks:
     - name: Update the apt package index
-      apt:
+      ansible.builtin.apt:
         update_cache: yes
 
     - name: install docker
@@ -13,6 +13,13 @@
         name:
           - docker.io
         state: present
+
+    - name: Install Docker Compose Plugin
+      ansible.builtin.apt:
+        name:
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
 
     - name: Download AWS CLI zip file
       get_url:
