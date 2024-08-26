@@ -21,3 +21,5 @@ services:
         restart: always
         depends_on:
             - jenkins
+volumes:
+    jenkins-data:
