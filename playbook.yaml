@@ -1,0 +1,45 @@
+---
+- name: Install Docker, aws-cli on Ubuntu
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update the apt package index
+      apt:
+        update_cache: yes
+
+    - name: install docker
+      ansible.builtin.apt:
+        name:
+          - docker.io
+        state: present
+
+    - name: Download AWS CLI zip file
+      get_url:
+        url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+        dest: "./awscliv2.zip"
+
+    - name: Install unzip package
+      apt:
+        name:
+          - unzip
+        state: present
+
+    - name: Unzip AWS CLI package
+      unarchive:
+        src: "./awscliv2.zip"
+        dest: "./"
+        remote_src: yes
+
+    - name: Unzip AWS CLI package
+      unarchive:
+        src: "./awscliv2.zip"
+        dest: "./"
+        remote_src: yes
+
+    - name: Install AWS CLI
+      command: "./aws/install"
+
+    - name: Check AWS CLI version
+      command: "aws --version"
+      register: aws_version_output
