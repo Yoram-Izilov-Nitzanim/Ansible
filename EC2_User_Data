@@ -1,0 +1,18 @@
+#!/bin/bash
+# Update package list and install Ansible
+sudo apt-get update
+sudo apt-get install -y ansible
+
+# Ensure the ubuntu user directory exists
+sudo mkdir -p /home/ubuntu/.ssh
+
+# Generate SSH key pair for the ubuntu user
+sudo -u ubuntu ssh-keygen -t rsa -b 4096 -f /home/ubuntu/.ssh/id_rsa -N ""
+
+# Add the generated public key to the authorized_keys file
+cat /home/ubuntu/.ssh/id_rsa.pub | sudo tee -a /home/ubuntu/.ssh/authorized_keys
+
+# Set the correct permissions
+sudo chown -R ubuntu:ubuntu /home/ubuntu/.ssh
+sudo chmod 700 /home/ubuntu/.ssh
+sudo chmod 600 /home/ubuntu/.ssh/authorized_keys
