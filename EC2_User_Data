@@ -1,7 +1,8 @@
 #!/bin/bash
+
+#### to see who the default user for testing - need to delete when I will finish
 whoami
-
-
+####
 # Update package list and install Ansible
 sudo apt-get update
 sudo apt-get install -y ansible
@@ -30,4 +31,6 @@ curl http://checkip.amazonaws.com >> /home/ubuntu/Ansible/hosts
 # Run ansible
 ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i /home/ubuntu/Ansible/hosts /home/ubuntu/Ansible/playbook.yaml -u ubuntu
 
+#### to see who the default user for testing - need to delete when I will finish
 whoami
+####
