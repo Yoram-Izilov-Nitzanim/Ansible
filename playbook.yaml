@@ -50,7 +50,7 @@
     - name: Download AWS CLI zip file
       get_url:
         url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
-        dest: "./awscliv2.zip"
+        dest: "/home/ubuntu/awscliv2.zip"
 
     - name: Install unzip package
       apt:
@@ -60,21 +60,21 @@
 
     - name: Unzip AWS CLI package
       unarchive:
-        src: "./awscliv2.zip"
-        dest: "./"
+        src: "/home/ubuntu/awscliv2.zip"
+        dest: "/home/ubuntu/"
         remote_src: yes
 
     - name: Unzip AWS CLI package
       unarchive:
-        src: "./awscliv2.zip"
-        dest: "./"
+        src: "/home/ubuntu/awscliv2.zip"
+        dest: "/home/ubuntu/"
         remote_src: yes
 
     - name: Install AWS CLI
-      command: "./aws/install"
+      command: "/home/ubuntu/aws/install"
 
     - name: Check AWS CLI version
       command: "aws --version"
 
     - name: Run Docker Compose
-      command: docker compose -f ./Ansible/docker-compose.yaml up -d
+      command: docker compose -f /home/ubuntu/Ansible/docker-compose.yaml up -d
