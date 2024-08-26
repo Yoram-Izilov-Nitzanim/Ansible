@@ -8,7 +8,7 @@ sudo apt-get update
 sudo apt-get install -y ansible
 
 # Ensure the ubuntu user directory exists
-sudo mkdir -p /home/ubuntu/.ssh
+# sudo mkdir -p /home/ubuntu/.ssh
 
 # Generate SSH key pair for the ubuntu user
 sudo -u ubuntu ssh-keygen -t rsa -b 4096 -f /home/ubuntu/.ssh/id_rsa -N ""
@@ -26,7 +26,9 @@ git clone https://github.com/Yoram-Izilov-Nitzanim/Ansible /home/ubuntu/Ansible
 
 # Add host file for the ansible to run
 echo "[servers]" > /home/ubuntu/Ansible/hosts
-curl http://checkip.amazonaws.com >> /home/ubuntu/Ansible/hosts
+public_ip=$(curl http://checkip.amazonaws.com)
+host_name=$(echo "host1 ansible_host="$public_ip) 
+echo $host_name >> /home/ubuntu/Ansible/hosts
 
 # Run ansible
 ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i /home/ubuntu/Ansible/hosts /home/ubuntu/Ansible/playbook.yaml -u ubuntu
