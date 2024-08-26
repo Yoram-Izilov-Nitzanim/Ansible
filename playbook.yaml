@@ -47,9 +47,6 @@
         group: docker
         append: yes
 
-    - name: Refresh group membership
-      command: newgrp docker
-        
     - name: Download AWS CLI zip file
       get_url:
         url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
