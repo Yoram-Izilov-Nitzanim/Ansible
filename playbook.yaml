@@ -1,5 +1,5 @@
 ---
-- name: Install Docker, aws-cli on Ubuntu
+- name: Install Docker, aws-cli on Ubuntu, run docker-compose
   hosts: all
   become: true
 
@@ -8,19 +8,39 @@
       ansible.builtin.apt:
         update_cache: yes
 
-    - name: install docker
-      ansible.builtin.apt:
-        name:
-          - docker.io
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
         state: present
 
-    - name: Install Docker Compose Plugin
-      ansible.builtin.apt:
-        name:
-          - docker-compose-plugin
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
         state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: latest
         update_cache: yes
-
+        
+    - name: Install docker-compose
+      get_url:
+        url : https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '755'
+        
     - name: Download AWS CLI zip file
       get_url:
         url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
@@ -50,3 +70,6 @@
     - name: Check AWS CLI version
       command: "aws --version"
       register: aws_version_output
+
+    - name: Run Docker Compose
+      command: docker compose -f ./Ansible/docker-compose.yaml up -d
