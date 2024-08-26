@@ -7,4 +7,4 @@ sudo apt-get install -y ansible
 git clone https://github.com/Yoram-Izilov-Nitzanim/Ansible /home/ubuntu/Ansible
 
 # Run ansible
-ansible-playbook /home/ubuntu/Ansible/playbook-v2.yaml
+ansible-playbook /home/ubuntu/Ansible/playbook-localhost.yaml
