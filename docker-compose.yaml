@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+    jenkins:
+        build: .
+        ports:
+            - "8080:8080"
+        environment:
+            DOCKER_HOST: tcp://172.18.0.3:2376
+        volumes:
+            - /Users/ubuntu/.aws:/root/.aws
+            - jenkins-data:/var/jenkins_home
+        restart: on-failure
+    socat:
+        image: alpine/socat
+        ports:
+            - "127.0.0.1:2376:2375"
+        command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /Users/ubuntu/.aws:/root/.aws
+        restart: always
+        depends_on:
+            - jenkins
