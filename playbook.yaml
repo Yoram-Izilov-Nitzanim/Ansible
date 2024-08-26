@@ -69,7 +69,6 @@
 
     - name: Check AWS CLI version
       command: "aws --version"
-      register: aws_version_output
 
     - name: Run Docker Compose
       command: docker compose -f ./Ansible/docker-compose.yaml up -d
