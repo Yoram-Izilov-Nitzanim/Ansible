@@ -6,7 +6,7 @@ sudo apt-get install -y ansible
 # Git clone project to run ansible and docker compose
 git clone https://github.com/Yoram-Izilov-Nitzanim/Ansible /home/ubuntu/Ansible
 
-# change group owner back to the ubuntu user
+# change owner and group owner back to the ubuntu user of all the installed files
 chown -R ubuntu:ubuntu /home/ubuntu
 
 # Run ansible
